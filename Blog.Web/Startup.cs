@@ -39,7 +39,7 @@ namespace Blog.Web
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddScoped<Query>();
             services.AddGraphQL(sp => SchemaBuilder.New()
-                      .AddServices(sp)HotChocolate.SchemaException: 'Unable to create instance of type ``.'
+                      .AddServices(sp)
                       .AddQueryType<QueryType>()
                       .AddType<CountryType>()
                       .AddType<AddressType>()
