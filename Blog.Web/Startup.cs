@@ -1,15 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Blog.Domain.Entities;
+using Blog.GraphQL.Queries;
+using Blog.GraphQL.Types;
+using Blog.Persistance.Repositories;
+using Blog.Persistance.Repositories.Interfaces;
+using GraphQL.Server.Ui.Playground;
+using HotChocolate;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Blog.Web
 {
@@ -25,7 +28,24 @@ namespace Blog.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddDbContext<BlogDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MainDatabase"))
+            ); ;
+            ///GRAPHQL\\\\\\\\\\\\\\\\\\\\\\\
+            ///////////////////////////////// 
+            services.AddTransient<ICountryRepository, CountryRepository>();
+            services.AddTransient<IAddressRepository, AddressRepository>();
+            services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped<Query>();
+            services.AddGraphQL(sp => SchemaBuilder.New()
+                      .AddServices(sp)HotChocolate.SchemaException: 'Unable to create instance of type ``.'
+                      .AddQueryType<QueryType>()
+                      .AddType<CountryType>()
+                      .AddType<AddressType>()
+                      .AddType<PostRepository>()
+                      .AddType<UserRepository>()
+                      .Create());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,17 +55,15 @@ namespace Blog.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+            app.UseWebSockets()
+                .UseGraphQL("/graphql")
+                .UseGraphiQL("/graphql")
+                .UsePlayground("/graphql")
+                .UseVoyager("/graphql");
 
-            app.UseHttpsRedirection();
 
-            app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
         }
     }
 }

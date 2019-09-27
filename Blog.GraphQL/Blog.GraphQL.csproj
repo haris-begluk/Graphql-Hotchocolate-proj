@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
+    <ProjectReference Include="..\Blog.Persistance\Blog.Persistance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GraphQL" Version="3.0.0-preview-1268" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-preview.23" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.0-preview.23" />
+    <PackageReference Include="HotChocolate.AspNetCore.GraphiQL" Version="11.0.0-preview.23" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="11.0.0-preview.23" />
+    <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="11.0.0-preview.23" />
+  </ItemGroup>
+
+</Project>
