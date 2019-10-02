@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Blog.Domain.Entities
 {
@@ -13,6 +11,5 @@ namespace Blog.Domain.Entities
         public string Password { get; set; }
         public Guid AddressId { get; set; }
         public Address Address { get; set; }
-
     }
 }

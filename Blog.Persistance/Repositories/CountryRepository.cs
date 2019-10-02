@@ -1,13 +1,11 @@
 ﻿using Blog.Domain.Entities;
 using Blog.Persistance.Repositories.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Blog.Persistance.Repositories
 {
-    public class CountryRepository :ICountryRepository
+    public class CountryRepository : ICountryRepository
     {
         public CountryRepository(BlogDbContext context)
         {
@@ -23,8 +21,7 @@ namespace Blog.Persistance.Repositories
 
         public IQueryable<Country> GetCountries()
         {
-            return _context.Countries.AsQueryable();
+            return _context.Countries;
         }
-
     }
 }

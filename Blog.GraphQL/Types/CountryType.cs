@@ -12,7 +12,6 @@ namespace Blog.GraphQL.Types
         { 
             descriptor.Field(a => a.CountryId).Type<NonNullType<IdType>>();
             descriptor.Field(a => a.Name).Type<NonNullType<StringType>>();
-
         }
     }
 }

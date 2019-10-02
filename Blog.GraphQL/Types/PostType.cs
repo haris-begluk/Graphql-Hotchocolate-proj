@@ -18,12 +18,10 @@ namespace Blog.GraphQL.Types
             descriptor.Field(a => a.UserId).Type<NonNullType<IdType>>();
             descriptor.Field(a => a.User)
             .Type<NonNullType<UserType>>()
-                .Resolver(context => context.Service<IUserRepository>()
-                .GetUser(context.Parent<Post>().UserId));
-
-
+                .Resolver(context => context
+                    .Service<IUserRepository>()
+                    .GetUser(context.Parent<Post>().UserId));
         }
     }
-
 }
 

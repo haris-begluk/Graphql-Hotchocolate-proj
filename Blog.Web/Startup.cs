@@ -3,7 +3,6 @@ using Blog.GraphQL.Queries;
 using Blog.GraphQL.Types;
 using Blog.Persistance.Repositories;
 using Blog.Persistance.Repositories.Interfaces;
-using GraphQL.Server.Ui.Playground;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Voyager;
@@ -29,23 +28,18 @@ namespace Blog.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BlogDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MainDatabase"))
-            ); ;
-            ///GRAPHQL\\\\\\\\\\\\\\\\\\\\\\\
-            ///////////////////////////////// 
+                options.UseSqlServer(Configuration.GetConnectionString("MainDatabase")));
+
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddScoped<Query>();
+            // Note: we do not need this since with the new structure if query we can let the query engine care about it:
+            //  services.AddScoped<Query>();
             services.AddGraphQL(sp => SchemaBuilder.New()
-                      .AddServices(sp)
-                      .AddQueryType<QueryType>()
-                      .AddType<CountryType>()
-                      .AddType<AddressType>()
-                      .AddType<PostRepository>()
-                      .AddType<UserRepository>()
-                      .Create());
+                .AddServices(sp)
+                .AddQueryType<QueryType>()
+                .Create());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,15 +49,12 @@ namespace Blog.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+
             app.UseWebSockets()
                 .UseGraphQL("/graphql")
                 .UseGraphiQL("/graphql")
                 .UsePlayground("/graphql")
                 .UseVoyager("/graphql");
-
-
-
         }
     }
 }

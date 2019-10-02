@@ -11,9 +11,9 @@ namespace Blog.Domain
         public BlogDbContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
-                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../Blog.Web"))
-                 .AddJsonFile("appsettings.json")
-                 .Build();
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../Blog.Web"))
+                .AddJsonFile("appsettings.json")
+                .Build();
 
             var builder = new DbContextOptionsBuilder<BlogDbContext>();
             var connectionString = configuration.GetConnectionString("MainDatabase");

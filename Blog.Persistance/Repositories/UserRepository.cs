@@ -1,9 +1,7 @@
 ﻿using Blog.Domain.Entities;
 using Blog.Persistance.Repositories.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Blog.Persistance.Repositories
 {
@@ -23,7 +21,7 @@ namespace Blog.Persistance.Repositories
 
         public IQueryable<User> GetUsers()
         {
-            return _context.Users.AsQueryable();
+            return _context.Users;
         }
     }
 }
