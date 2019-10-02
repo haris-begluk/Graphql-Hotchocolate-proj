@@ -23,7 +23,9 @@ namespace Blog.Persistance.Repositories
 
         public IQueryable<Address> GetAddresses()
         {
-            return _context.Addresses.AsQueryable();
+            // Note: AsQueryable will make this an in-memory queryable.
+            // The EF is already providing a IQueryable through IDbSet
+            return _context.Addresses;
         }
     }
 }

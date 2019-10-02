@@ -1,5 +1,6 @@
 ﻿using Blog.Domain.Entities;
 using Blog.Persistance.Repositories.Interfaces;
+using HotChocolate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,46 +10,24 @@ namespace Blog.GraphQL.Queries
 {
     public class Query
     {
-        private readonly IAddressRepository _addressRepo;
-        
-
-        public Query(ICountryRepository countryRepo, 
-            IAddressRepository addressRepo, 
-            IPostRepository postRepo, 
-            IUserRepository userRepo)
+        public IQueryable<Country> GetCountries([Service]ICountryRepository repository)
         {
-            _countryRepo = countryRepo;
-            _addressRepo = addressRepo;
-            _postRepo = postRepo;
-            _userRepo = userRepo;
+            return repository.GetCountries();
         }
 
-        public ICountryRepository _countryRepo { get; }
-        public IPostRepository _postRepo { get; }
-        public IUserRepository _userRepo { get; }
-
-        public IQueryable<Country> GetCountries()
+        public IQueryable<Address> GetAddresses([Service]IAddressRepository repository)
         {
+            return repository.GetAddresses();
+        }
 
-            return _countryRepo.GetCountries();
-        }
-        public IQueryable<Address> GetAddresses()
+        public IQueryable<Post> GetPosts([Service]IPostRepository repository)
         {
-           
-            return _addressRepo.GetAddresses();
+            return repository.GetPosts();
         }
-        public IQueryable<Post> GetPosts()
-        {
 
-            return _postRepo.GetPosts();
-        }
-        public IQueryable<User> GetUsers()
+        public IQueryable<User> GetUsers([Service]IUserRepository repository)
         {
-           
-            return _userRepo.GetUsers();
+            return repository.GetUsers();
         }
-        
-        
-
     }
 }

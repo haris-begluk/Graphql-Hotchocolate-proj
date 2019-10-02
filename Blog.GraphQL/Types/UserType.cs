@@ -18,11 +18,10 @@ namespace Blog.GraphQL.Types
             descriptor.Field(a => a.Password).Type<NonNullType<StringType>>();
             descriptor.Field(a => a.AddressId).Type<NonNullType<IdType>>();
             descriptor.Field(a => a.Address)
-            .Type<NonNullType<AddressType>>()
-                .Resolver(context => context.Service<IAddressRepository>()
-                .GetAddress(context.Parent<User>().AddressId));
-
-
+                .Type<NonNullType<AddressType>>()
+                .Resolver(context => context
+                    .Service<IAddressRepository>()
+                    .GetAddress(context.Parent<User>().AddressId));
         }
     }
 }
