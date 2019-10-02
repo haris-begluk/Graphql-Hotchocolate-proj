@@ -11,6 +11,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-preview.27" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.0-preview.27" />
+    <PackageReference Include="HotChocolate.AspNetCore.GraphiQL" Version="11.0.0-preview.27" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="11.0.0-preview.27" />
+    <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="11.0.0-preview.27" />
   </ItemGroup>
 
   <ItemGroup>
