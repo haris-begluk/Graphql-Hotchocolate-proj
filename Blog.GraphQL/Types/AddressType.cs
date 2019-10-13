@@ -1,6 +1,9 @@
 ﻿using Blog.Domain.Entities;
 using Blog.Persistance.Repositories.Interfaces;
+using GraphQL.DataLoader;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
+using System;
 
 namespace Blog.GraphQL.Types
 {
@@ -17,6 +20,16 @@ namespace Blog.GraphQL.Types
                 .Resolver(context => context
                     .Service<ICountryRepository>()
                     .GetCountry(context.Parent<Address>().CountryId));
+            //descriptor.Field(a => a.Country).Type<NonNullType<CountryType>>().Resolver(ctx =>
+            //  {
+            //      ICountryRepository repository = ctx.Service<ICountryRepository>();
+
+            //      IDataLoader<Guid, Country> dataLoader = ctx.BatchDataLoader<Guid, Country>(
+            //          "GetCountry",
+            //          repository.GetCountry);
+            //      return dataLoader.LoadAsync(ctx.Parent<Address>().CountryId);
+            //  });
+            
         }
     }
 }
