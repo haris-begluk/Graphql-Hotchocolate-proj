@@ -1,7 +1,11 @@
 ﻿using Blog.Domain.Entities;
 using Blog.Persistance.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Blog.Persistance.Repositories
 {
@@ -22,6 +26,13 @@ namespace Blog.Persistance.Repositories
         public IQueryable<User> GetUsers()
         {
             return _context.Users;
+        }
+        public async Task<IReadOnlyDictionary<Guid, User>> GetUsersAsync(
+          IReadOnlyCollection<Guid> userIds,
+          CancellationToken cancellationToken)
+        {
+            List<User> posts = await _context.Users.Where(c => userIds.Contains(c.UserId)).ToListAsync();
+            return posts.ToDictionary(t => t.UserId);
         }
     }
 }

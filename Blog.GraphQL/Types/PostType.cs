@@ -1,5 +1,7 @@
 ﻿using Blog.Domain.Entities;
 using Blog.Persistance.Repositories.Interfaces;
+using GreenDonut;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using System;
 using System.Collections.Generic;
@@ -16,11 +18,13 @@ namespace Blog.GraphQL.Types
             descriptor.Field(a => a.Content).Type<NonNullType<StringType>>();
             descriptor.Field(a => a.PostedAt).Type<NonNullType<DateTimeType>>();
             descriptor.Field(a => a.UserId).Type<NonNullType<IdType>>();
-            descriptor.Field(a => a.User)
-            .Type<NonNullType<UserType>>()
-                .Resolver(context => context
-                    .Service<IUserRepository>()
-                    .GetUser(context.Parent<Post>().UserId));
+            descriptor.Field(a => a.User).Type<NonNullType<UserType>>().Resolver(ctx =>
+            {
+                IUserRepository repository = ctx.Service<IUserRepository>();
+                IDataLoader<Guid, User> dataLoader = ctx.BatchDataLoader<Guid, User>(
+                    "UserById", repository.GetUsersAsync);
+                return dataLoader.LoadAsync(ctx.Parent<Post>().UserId);
+            });
         }
     }
 }
