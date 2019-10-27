@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GraphQL" Version="3.0.0-preview-1268" />
+    <PackageReference Include="GraphQL" Version="2.4.0" />
     <PackageReference Include="HotChocolate" Version="11.0.0-preview.27" />
     <PackageReference Include="HotChocolate.Types.Filters" Version="11.0.0-preview.27" />
     <PackageReference Include="HotChocolate.Types.Sorting" Version="11.0.0-preview.27" />

@@ -11,7 +11,7 @@ namespace Blog.GraphQL.Types
         protected override void Configure(IObjectTypeDescriptor<Country> descriptor)
         { 
             descriptor.Field(a => a.CountryId).Type<NonNullType<IdType>>();
-            descriptor.Field(a => a.Name).Type<NonNullType<StringType>>();
+            descriptor.Field(a => a.Name).Type<StringType>();
         }
     }
 }

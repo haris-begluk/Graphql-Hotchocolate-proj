@@ -14,13 +14,13 @@ namespace Blog.GraphQL.Types
         protected override void Configure(IObjectTypeDescriptor<User> descriptor)
         {
             descriptor.Field(a => a.UserId).Type<NonNullType<IdType>>();
-            descriptor.Field(a => a.UserName).Type<NonNullType<StringType>>();
-            descriptor.Field(a => a.Email).Type<NonNullType<StringType>>();
-            descriptor.Field(a => a.FullName).Type<NonNullType<StringType>>();
-            descriptor.Field(a => a.Password).Type<NonNullType<StringType>>();
-            descriptor.Field(a => a.AddressId).Type<NonNullType<IdType>>();
+            descriptor.Field(a => a.UserName).Type<StringType>();
+            descriptor.Field(a => a.Email).Type<StringType>();
+            descriptor.Field(a => a.FullName).Type<StringType>();
+            descriptor.Field(a => a.Password).Type<StringType>();
+            descriptor.Field(a => a.AddressId).Type<IdType>();
 
-            descriptor.Field(a => a.Address).Type<NonNullType<AddressType>>().Resolver(ctx =>
+            descriptor.Field(a => a.Address).Type<AddressType>().Resolver(ctx =>
             {
                 IAddressRepository repository = ctx.Service<IAddressRepository>();
                 IDataLoader<Guid, Address> dataLoader = ctx.BatchDataLoader<Guid, Address>(

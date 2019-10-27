@@ -14,11 +14,11 @@ namespace Blog.GraphQL.Types
         protected override void Configure(IObjectTypeDescriptor<Post> descriptor)
         {
             descriptor.Field(a => a.PostId).Type<NonNullType<IdType>>();
-            descriptor.Field(a => a.Title).Type<NonNullType<StringType>>();
-            descriptor.Field(a => a.Content).Type<NonNullType<StringType>>();
-            descriptor.Field(a => a.PostedAt).Type<NonNullType<DateTimeType>>();
-            descriptor.Field(a => a.UserId).Type<NonNullType<IdType>>();
-            descriptor.Field(a => a.User).Type<NonNullType<UserType>>().Resolver(ctx =>
+            descriptor.Field(a => a.Title).Type<StringType>();
+            descriptor.Field(a => a.Content).Type<StringType>();
+            descriptor.Field(a => a.PostedAt).Type<DateTimeType>();
+            descriptor.Field(a => a.UserId).Type<IdType>();
+            descriptor.Field(a => a.User).Type<UserType>().Resolver(ctx =>
             {
                 IUserRepository repository = ctx.Service<IUserRepository>();
                 IDataLoader<Guid, User> dataLoader = ctx.BatchDataLoader<Guid, User>(
