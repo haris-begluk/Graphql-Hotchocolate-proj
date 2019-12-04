@@ -21,15 +21,22 @@ namespace Blog.GraphQL.Queries
 
             // Note: This one is with filtering and sorting but without paging
             descriptor.Field(t => t.GetCountries(default))
-                .Type<NonNullType<ListType<CountryType>>>()
+                .Type<NonNullType<ListType<CountryType>>>() 
+                .UsePaging<CountryType>()
                 .UseFiltering()
                 .UseSorting();
 
             descriptor.Field(t => t.GetPosts(default))
-                .Type<NonNullType<ListType<PostType>>>();
+                .Type<NonNullType<ListType<PostType>>>()
+                .UsePaging<PostType>()
+                .UseFiltering()
+                .UseSorting(); 
 
             descriptor.Field(t => t.GetUsers(default))
-                .Type<NonNullType<ListType<UserType>>>();
+                .Type<NonNullType<ListType<UserType>>>()
+                .UsePaging<UserType>()
+                .UseFiltering()
+                .UseSorting();
         }
     }
 }
